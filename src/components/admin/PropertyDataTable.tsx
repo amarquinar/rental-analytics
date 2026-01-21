@@ -36,16 +36,16 @@ export function PropertyDataTable({ properties, onEdit, onDelete }: PropertyData
 
   const SortIcon = ({ field }: { field: keyof Property }) => {
     if (sortField !== field) return null;
-    return <span className="ml-1 text-lime">{sortOrder === 'asc' ? '↑' : '↓'}</span>;
+    return <span className="ml-1.5 text-zinc-400">{sortOrder === 'asc' ? '↑' : '↓'}</span>;
   };
 
-  const thClass = 'px-4 py-3 text-left text-zinc-400 font-semibold text-sm cursor-pointer hover:text-lime transition-colors';
+  const thClass = 'px-5 py-4 text-left text-zinc-500 font-medium text-sm cursor-pointer hover:text-zinc-300 transition-colors duration-150';
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
+    <div className="bg-surface rounded-xl overflow-hidden ring-1 ring-border-subtle shadow-premium">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-zinc-950 border-b border-zinc-800">
+          <thead className="bg-surface-elevated border-b border-border-subtle">
             <tr>
               <th className={thClass} onClick={() => handleSort('address')}>
                 Address <SortIcon field="address" />
@@ -65,26 +65,26 @@ export function PropertyDataTable({ properties, onEdit, onDelete }: PropertyData
               <th className={thClass} onClick={() => handleSort('source')}>
                 Source <SortIcon field="source" />
               </th>
-              <th className="px-4 py-3 text-zinc-400 font-semibold text-sm">Actions</th>
+              <th className="px-5 py-4 text-zinc-500 font-medium text-sm">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-800">
+          <tbody className="divide-y divide-border-subtle">
             {sortedProperties.map((property) => (
-              <tr key={property.id} className="hover:bg-zinc-800/50 transition-colors">
-                <td className="px-4 py-3 text-white text-sm">{property.address}</td>
-                <td className="px-4 py-3 text-zinc-300 text-sm">{property.neighborhood}</td>
-                <td className="px-4 py-3 text-white text-sm text-right">€{property.price.toLocaleString()}</td>
-                <td className="px-4 py-3 text-white text-sm text-right">€{property.monthlyRent.toLocaleString()}</td>
-                <td className="px-4 py-3 text-lime text-sm text-right font-semibold">{property.yield}%</td>
-                <td className="px-4 py-3 text-zinc-300 text-sm">{property.source}</td>
-                <td className="px-4 py-3">
-                  <div className="flex gap-2">
-                    <button onClick={() => onEdit(property)} className="text-lime hover:text-lime-hover text-sm font-medium">
+              <tr key={property.id} className="hover:bg-surface-hover transition-colors duration-150">
+                <td className="px-5 py-4 text-zinc-100 text-sm">{property.address}</td>
+                <td className="px-5 py-4 text-zinc-400 text-sm">{property.neighborhood}</td>
+                <td className="px-5 py-4 text-zinc-100 text-sm text-right">€{property.price.toLocaleString()}</td>
+                <td className="px-5 py-4 text-zinc-100 text-sm text-right">€{property.monthlyRent.toLocaleString()}</td>
+                <td className="px-5 py-4 text-lime text-sm text-right font-medium">{property.yield}%</td>
+                <td className="px-5 py-4 text-zinc-400 text-sm">{property.source}</td>
+                <td className="px-5 py-4">
+                  <div className="flex gap-3">
+                    <button onClick={() => onEdit(property)} className="text-zinc-400 hover:text-zinc-100 text-sm font-medium transition-colors duration-150">
                       Edit
                     </button>
                     <button
                       onClick={() => { if (confirm('Delete this property?')) onDelete(property.id); }}
-                      className="text-red-500 hover:text-red-400 text-sm font-medium"
+                      className="text-zinc-500 hover:text-red-400 text-sm font-medium transition-colors duration-150"
                     >
                       Delete
                     </button>
@@ -96,7 +96,7 @@ export function PropertyDataTable({ properties, onEdit, onDelete }: PropertyData
         </table>
       </div>
       {properties.length === 0 && (
-        <div className="p-12 text-center text-zinc-400">No properties found.</div>
+        <div className="p-14 text-center text-zinc-500">No properties found.</div>
       )}
     </div>
   );

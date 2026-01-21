@@ -14,17 +14,17 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
   };
 
   const inputClass =
-    'w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-lime/50 focus:border-lime';
-  const labelClass = 'block text-sm font-medium text-zinc-400 mb-2';
+    'w-full bg-zinc-900/50 ring-1 ring-border-subtle rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:ring-border-hover placeholder:text-zinc-600 transition-all duration-150';
+  const labelClass = 'block text-sm font-medium text-zinc-500 mb-2';
 
   return (
-    <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
-      <h2 className="text-xl font-semibold text-white mb-6">Investment Details</h2>
+    <div className="bg-surface rounded-xl p-6 ring-1 ring-border-subtle shadow-premium">
+      <h2 className="text-xl font-medium text-zinc-50 mb-7">Investment Details</h2>
 
-      <div className="space-y-6">
+      <div className="space-y-7">
         {/* Property Section */}
         <div>
-          <h3 className="text-sm font-medium text-lime mb-4 uppercase tracking-wider">
+          <h3 className="text-xs font-medium text-zinc-400 mb-4 uppercase tracking-wider">
             Property
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -53,7 +53,7 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
 
         {/* Financing Section */}
         <div>
-          <h3 className="text-sm font-medium text-lime mb-4 uppercase tracking-wider">
+          <h3 className="text-xs font-medium text-zinc-400 mb-4 uppercase tracking-wider">
             Financing
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -95,7 +95,7 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
 
         {/* Expenses Section */}
         <div>
-          <h3 className="text-sm font-medium text-lime mb-4 uppercase tracking-wider">
+          <h3 className="text-xs font-medium text-zinc-400 mb-4 uppercase tracking-wider">
             Annual Expenses
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

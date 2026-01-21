@@ -57,53 +57,53 @@ export default function AdminPage() {
   const sources = scraper.getSources();
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-background text-zinc-50">
       {/* Header */}
-      <header className="border-b border-zinc-800 sticky top-0 bg-black/90 backdrop-blur-sm z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 bg-lime rounded-xl flex items-center justify-center">
-              <span className="text-black font-bold text-sm">RA</span>
+      <header className="border-b border-border-subtle sticky top-0 bg-background/80 backdrop-blur-md z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 bg-zinc-800 rounded-lg flex items-center justify-center border border-border-subtle group-hover:border-border-hover transition-all duration-150">
+              <span className="text-lime font-semibold text-sm">RA</span>
             </div>
-            <span className="text-white font-medium">Rental Analytics</span>
+            <span className="text-zinc-100 font-medium tracking-tight">Rental Analytics</span>
           </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/dashboard" className="text-zinc-400 hover:text-white transition-colors">Dashboard</Link>
-            <Link href="/neighborhoods" className="text-zinc-400 hover:text-white transition-colors">Barrios</Link>
-            <Link href="/calculator" className="text-zinc-400 hover:text-white transition-colors">Calculadora</Link>
-            <Link href="/admin" className="text-lime font-medium">Admin</Link>
+          <nav className="flex items-center gap-1">
+            <Link href="/dashboard" className="px-4 py-2 text-zinc-400 text-sm hover:text-zinc-100 transition-colors duration-150">Dashboard</Link>
+            <Link href="/neighborhoods" className="px-4 py-2 text-zinc-400 text-sm hover:text-zinc-100 transition-colors duration-150">Barrios</Link>
+            <Link href="/calculator" className="px-4 py-2 text-zinc-400 text-sm hover:text-zinc-100 transition-colors duration-150">Calculadora</Link>
+            <Link href="/admin" className="px-4 py-2 text-zinc-50 text-sm font-medium bg-surface rounded-lg">Admin</Link>
           </nav>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Data Management</h1>
-          <p className="text-zinc-400 mt-1">Manage properties and data sources</p>
+      <main className="max-w-7xl mx-auto px-6 py-10">
+        <div className="mb-10 space-y-2">
+          <h1 className="text-3xl font-semibold text-zinc-50 tracking-tight">Data Management</h1>
+          <p className="text-zinc-400">Manage properties and data sources</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 border-b border-zinc-800">
+        <div className="flex gap-1 mb-8 border-b border-border-subtle">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-6 py-3 font-semibold transition-colors ${
-              activeTab === 'all' ? 'text-lime border-b-2 border-lime' : 'text-zinc-400 hover:text-white'
+            className={`px-5 py-3 font-medium text-sm transition-colors duration-150 ${
+              activeTab === 'all' ? 'text-zinc-50 border-b-2 border-zinc-50' : 'text-zinc-500 hover:text-zinc-300'
             }`}
           >
             All Properties ({properties.length})
           </button>
           <button
             onClick={() => { setActiveTab('add'); setEditingProperty(null); }}
-            className={`px-6 py-3 font-semibold transition-colors ${
-              activeTab === 'add' ? 'text-lime border-b-2 border-lime' : 'text-zinc-400 hover:text-white'
+            className={`px-5 py-3 font-medium text-sm transition-colors duration-150 ${
+              activeTab === 'add' ? 'text-zinc-50 border-b-2 border-zinc-50' : 'text-zinc-500 hover:text-zinc-300'
             }`}
           >
             {editingProperty ? 'Edit Property' : 'Add New'}
           </button>
           <button
             onClick={() => setActiveTab('sources')}
-            className={`px-6 py-3 font-semibold transition-colors ${
-              activeTab === 'sources' ? 'text-lime border-b-2 border-lime' : 'text-zinc-400 hover:text-white'
+            className={`px-5 py-3 font-medium text-sm transition-colors duration-150 ${
+              activeTab === 'sources' ? 'text-zinc-50 border-b-2 border-zinc-50' : 'text-zinc-500 hover:text-zinc-300'
             }`}
           >
             Data Sources
@@ -122,9 +122,9 @@ export default function AdminPage() {
         )}
       </main>
 
-      <footer className="border-t border-zinc-800 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-6 text-center text-zinc-500 text-sm">
-          Rental Analytics - Data-driven investment decisions
+      <footer className="border-t border-border-subtle mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8 text-center text-zinc-500 text-sm">
+          Rental Analytics — Data-driven investment decisions
         </div>
       </footer>
     </div>

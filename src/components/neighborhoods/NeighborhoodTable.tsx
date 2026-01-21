@@ -35,68 +35,98 @@ export function NeighborhoodTable({ stats }: NeighborhoodTableProps) {
   });
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR',
-      maximumFractionDigits: 0,
-    }).format(price);
+    return new Intl.NumberFormat('de-DE').format(price) + '€';
   };
 
   const SortIcon = ({ field }: { field: SortKey }) => {
-    if (sortKey !== field) return null;
-    return <span className="ml-1 text-lime">{sortOrder === 'asc' ? '↑' : '↓'}</span>;
+    if (sortKey !== field) return <span className="ml-1.5 text-zinc-700">↕</span>;
+    return <span className="ml-1.5 text-lime">{sortOrder === 'asc' ? '↑' : '↓'}</span>;
   };
 
-  const thClass = 'px-6 py-4 text-left text-zinc-400 font-semibold text-sm cursor-pointer hover:text-lime transition-colors';
-
   return (
-    <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-zinc-950 border-b border-zinc-800">
-            <tr>
-              <th className={thClass} onClick={() => handleSort('name')}>
-                Neighborhood <SortIcon field="name" />
-              </th>
-              <th className={`${thClass} text-right`} onClick={() => handleSort('avgYield')}>
-                Avg Yield <SortIcon field="avgYield" />
-              </th>
-              <th className={`${thClass} text-right`} onClick={() => handleSort('avgPrice')}>
-                Avg Price <SortIcon field="avgPrice" />
-              </th>
-              <th className={`${thClass} text-right`} onClick={() => handleSort('avgRent')}>
-                Avg Rent <SortIcon field="avgRent" />
-              </th>
-              <th className={`${thClass} text-right`} onClick={() => handleSort('propertyCount')}>
-                Properties <SortIcon field="propertyCount" />
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-zinc-800">
-            {sortedStats.map((stat, index) => (
-              <tr key={stat.name} className="hover:bg-zinc-800/50 transition-colors">
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-zinc-500 text-sm w-6">#{index + 1}</span>
-                    <span className="text-white font-medium">{stat.name}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <span className="text-lime font-bold">{stat.avgYield}%</span>
-                </td>
-                <td className="px-6 py-4 text-right text-white">
-                  {formatPrice(stat.avgPrice)}
-                </td>
-                <td className="px-6 py-4 text-right text-white">
-                  {formatPrice(stat.avgRent)}/mo
-                </td>
-                <td className="px-6 py-4 text-right text-zinc-300">
-                  {stat.propertyCount}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="border border-border-subtle rounded-lg overflow-hidden">
+      {/* Table Header */}
+      <div className="hidden md:grid grid-cols-6 gap-4 px-4 py-3 bg-surface/30 border-b border-border text-xs uppercase tracking-wider text-zinc-500 font-medium">
+        <div className="col-span-2 cursor-pointer hover:text-zinc-300 transition-colors" onClick={() => handleSort('name')}>
+          Area <SortIcon field="name" />
+        </div>
+        <div className="text-right cursor-pointer hover:text-zinc-300 transition-colors" onClick={() => handleSort('avgYield')}>
+          Yield <SortIcon field="avgYield" />
+        </div>
+        <div className="text-right cursor-pointer hover:text-zinc-300 transition-colors" onClick={() => handleSort('avgPrice')}>
+          Avg Price <SortIcon field="avgPrice" />
+        </div>
+        <div className="text-right cursor-pointer hover:text-zinc-300 transition-colors" onClick={() => handleSort('avgRent')}>
+          Avg Rent <SortIcon field="avgRent" />
+        </div>
+        <div className="text-right cursor-pointer hover:text-zinc-300 transition-colors" onClick={() => handleSort('propertyCount')}>
+          Count <SortIcon field="propertyCount" />
+        </div>
+      </div>
+
+      {/* Table Rows */}
+      <div className="divide-y divide-border-subtle">
+        {sortedStats.map((stat, index) => (
+          <div
+            key={stat.name}
+            className={`
+              grid grid-cols-1 md:grid-cols-6 gap-2 md:gap-4 px-4 py-4
+              hover:bg-surface/30 transition-colors cursor-pointer
+              ${index % 2 === 0 ? 'bg-transparent' : 'bg-surface/10'}
+            `}
+          >
+            {/* Rank & Name */}
+            <div className="col-span-2 flex items-center gap-3">
+              <span className={`
+                w-7 h-7 rounded flex items-center justify-center font-mono text-xs font-bold
+                ${index === 0 ? 'bg-lime text-black' : 'bg-zinc-800 text-zinc-500'}
+              `}>
+                {index + 1}
+              </span>
+              <span className="text-zinc-100 font-medium">{stat.name}</span>
+            </div>
+
+            {/* Mobile: Full row with all data */}
+            <div className="md:hidden flex items-center justify-between text-sm mt-2 pt-2 border-t border-border-subtle/50">
+              <div className="font-mono">
+                <span className="text-zinc-500 text-xs mr-2">Yield:</span>
+                <span className="text-lime font-semibold">{stat.avgYield}%</span>
+              </div>
+              <div className="font-mono">
+                <span className="text-zinc-500 text-xs mr-2">Avg:</span>
+                <span className="text-zinc-100">{formatPrice(stat.avgPrice)}</span>
+              </div>
+              <div className="font-mono">
+                <span className="text-zinc-500 text-xs mr-2">Props:</span>
+                <span className="text-zinc-400">{stat.propertyCount}</span>
+              </div>
+            </div>
+
+            {/* Desktop: Individual columns */}
+            <div className="hidden md:flex items-center justify-end font-mono">
+              <span className={`text-lg font-bold ${index === 0 ? 'text-lime' : 'text-zinc-100'}`}>
+                {stat.avgYield}%
+              </span>
+            </div>
+            <div className="hidden md:flex items-center justify-end font-mono text-zinc-100">
+              {formatPrice(stat.avgPrice)}
+            </div>
+            <div className="hidden md:flex items-center justify-end font-mono text-zinc-100">
+              {formatPrice(stat.avgRent)}
+            </div>
+            <div className="hidden md:flex items-center justify-end font-mono text-zinc-500">
+              {stat.propertyCount}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="px-4 py-3 bg-surface/20 border-t border-border-subtle">
+        <div className="flex items-center justify-between text-xs text-zinc-500 font-mono">
+          <span>Total: {sortedStats.length} areas</span>
+          <span>Sorted by: {sortKey}</span>
+        </div>
       </div>
     </div>
   );

@@ -67,16 +67,19 @@ export function FilterBar({
 
   const hasActiveFilters = Object.values(filters).some(v => v !== null);
 
+  const selectClass = "bg-zinc-900/50 ring-1 ring-border-subtle rounded-lg px-3 py-2 text-zinc-100 text-sm focus:outline-none focus:ring-border-hover transition-all duration-150";
+  const inputClass = "bg-zinc-900/50 ring-1 ring-border-subtle rounded-lg px-3 py-2 text-zinc-100 text-sm focus:outline-none focus:ring-border-hover placeholder:text-zinc-600 transition-all duration-150";
+
   return (
-    <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-4 space-y-4">
+    <div className="bg-surface rounded-xl p-5 ring-1 ring-border-subtle shadow-premium space-y-4">
       {/* Top row: Sort and Results */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="text-zinc-400 text-sm">Ordenar por:</span>
+          <span className="text-zinc-500 text-sm">Ordenar por:</span>
           <select
             value={sortField}
             onChange={handleSortFieldChange}
-            className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime/50"
+            className={selectClass}
           >
             <option value="yield">Rentabilidad</option>
             <option value="price">Precio</option>
@@ -86,29 +89,29 @@ export function FilterBar({
           </select>
           <button
             onClick={toggleSortOrder}
-            className="p-2 bg-zinc-800 border border-zinc-700 rounded-lg hover:bg-zinc-700 transition-colors"
+            className="p-2 bg-zinc-900/50 ring-1 ring-border-subtle rounded-lg hover:ring-border-hover hover:bg-surface-hover transition-all duration-150"
             title={sortOrder === 'asc' ? 'Ascendente' : 'Descendente'}
           >
             {sortOrder === 'desc' ? (
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             ) : (
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
               </svg>
             )}
           </button>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-zinc-400 text-sm">
-            <span className="text-lime font-semibold">{resultCount}</span> propiedades
+        <div className="flex items-center gap-4">
+          <span className="text-zinc-500 text-sm">
+            <span className="text-zinc-100 font-medium">{resultCount}</span> propiedades
           </span>
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="text-sm text-zinc-400 hover:text-white transition-colors underline"
+              className="text-sm text-zinc-500 hover:text-zinc-100 transition-colors duration-150"
             >
               Limpiar filtros
             </button>
@@ -122,7 +125,7 @@ export function FilterBar({
         <select
           value={filters.neighborhood || ''}
           onChange={handleNeighborhoodChange}
-          className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime/50"
+          className={selectClass}
         >
           <option value="">Todos los barrios</option>
           {neighborhoods.map(n => (
@@ -137,15 +140,15 @@ export function FilterBar({
             placeholder="Precio mín"
             value={filters.minPrice || ''}
             onChange={handleMinPriceChange}
-            className="w-28 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime/50 placeholder:text-zinc-500"
+            className={`w-28 ${inputClass}`}
           />
-          <span className="text-zinc-500">-</span>
+          <span className="text-zinc-600">—</span>
           <input
             type="number"
             placeholder="Precio máx"
             value={filters.maxPrice || ''}
             onChange={handleMaxPriceChange}
-            className="w-28 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime/50 placeholder:text-zinc-500"
+            className={`w-28 ${inputClass}`}
           />
         </div>
 
@@ -157,7 +160,7 @@ export function FilterBar({
             placeholder="Rent. mín %"
             value={filters.minYield || ''}
             onChange={handleMinYieldChange}
-            className="w-28 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime/50 placeholder:text-zinc-500"
+            className={`w-28 ${inputClass}`}
           />
         </div>
 
@@ -165,7 +168,7 @@ export function FilterBar({
         <select
           value={filters.minBedrooms || ''}
           onChange={handleMinBedroomsChange}
-          className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime/50"
+          className={selectClass}
         >
           <option value="">Habitaciones</option>
           <option value="1">1+ hab</option>

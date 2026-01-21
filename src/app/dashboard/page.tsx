@@ -3,7 +3,8 @@
 import { useState, useMemo } from 'react';
 import { Property, FilterOptions, SortField, SortOrder } from '@/types/property';
 import { mockProperties } from '@/data/mockProperties';
-import { PropertyCard } from '@/components/dashboard/PropertyCard';
+import { PropertyRow } from '@/components/dashboard/PropertyRow';
+import { StickySidebar } from '@/components/dashboard/StickySidebar';
 import { FilterBar } from '@/components/dashboard/FilterBar';
 import { ComparisonTable } from '@/components/dashboard/ComparisonTable';
 import Link from 'next/link';
@@ -86,99 +87,143 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-background text-zinc-50">
       {/* Header */}
-      <header className="border-b border-zinc-800 sticky top-0 bg-black/90 backdrop-blur-sm z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 bg-lime rounded-xl flex items-center justify-center">
-              <span className="text-black font-bold text-sm">RA</span>
+      <header className="border-b border-border-subtle sticky top-0 bg-background/80 backdrop-blur-md z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 bg-zinc-800 rounded-lg flex items-center justify-center border border-border-subtle group-hover:border-border-hover transition-all duration-150">
+              <span className="text-lime font-semibold text-sm">RA</span>
             </div>
-            <span className="text-white font-medium">Rental Analytics</span>
+            <span className="text-zinc-100 font-medium tracking-tight">Rental Analytics</span>
           </Link>
 
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-1">
             <Link
               href="/dashboard"
-              className="text-lime font-medium"
+              className="px-4 py-2 text-zinc-50 text-sm font-medium bg-surface rounded-lg"
             >
               Dashboard
             </Link>
             <Link
-              href="#"
-              className="text-zinc-400 hover:text-white transition-colors"
+              href="/neighborhoods"
+              className="px-4 py-2 text-zinc-400 text-sm hover:text-zinc-100 transition-colors duration-150"
             >
               Barrios
             </Link>
             <Link
-              href="#"
-              className="text-zinc-400 hover:text-white transition-colors"
+              href="/calculator"
+              className="px-4 py-2 text-zinc-400 text-sm hover:text-zinc-100 transition-colors duration-150"
             >
               Calculadora
+            </Link>
+            <Link
+              href="/admin"
+              className="px-4 py-2 text-zinc-400 text-sm hover:text-zinc-100 transition-colors duration-150"
+            >
+              Admin
             </Link>
           </nav>
         </div>
       </header>
 
-      {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-        {/* Page title */}
-        <div>
-          <h1 className="text-3xl font-bold text-white">Property Dashboard</h1>
-          <p className="text-zinc-400 mt-1">
-            Compara propiedades y encuentra las mejores oportunidades de inversión
-          </p>
-        </div>
+      {/* Main content - Two column layout */}
+      <main className="max-w-[1600px] mx-auto px-6 py-8">
+        <div className="flex gap-8">
+          {/* Left: Data Table */}
+          <div className="flex-1 min-w-0">
+            {/* Header with title and count */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-2xl font-semibold text-zinc-50 tracking-tight">Properties</h1>
+                <p className="text-zinc-500 text-sm mt-1">
+                  {filteredProperties.length} listings · Click to select for comparison
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-zinc-600 font-mono">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                LIVE
+              </div>
+            </div>
 
-        {/* Comparison section (if any selected) */}
-        {selectedIds.size > 0 && (
-          <section>
-            <ComparisonTable
-              properties={selectedProperties}
-              onRemove={handleRemoveFromComparison}
+            {/* Filter bar - compact */}
+            <FilterBar
+              filters={filters}
+              onFiltersChange={setFilters}
+              sortField={sortField}
+              sortOrder={sortOrder}
+              onSortChange={handleSortChange}
+              resultCount={filteredProperties.length}
             />
-          </section>
-        )}
 
-        {/* Filter bar */}
-        <FilterBar
-          filters={filters}
-          onFiltersChange={setFilters}
-          sortField={sortField}
-          sortOrder={sortOrder}
-          onSortChange={handleSortChange}
-          resultCount={filteredProperties.length}
-        />
-
-        {/* Properties grid */}
-        <section>
-          {filteredProperties.length === 0 ? (
-            <div className="text-center py-12">
-              <svg className="w-16 h-16 text-zinc-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-zinc-400 text-lg">No se encontraron propiedades</p>
-              <p className="text-zinc-500 mt-1">Intenta ajustar los filtros</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProperties.map((property) => (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                  isSelected={selectedIds.has(property.id)}
-                  onToggleSelect={handleToggleSelect}
+            {/* Comparison section (if any selected) */}
+            {selectedIds.size >= 2 && (
+              <section className="mt-6">
+                <ComparisonTable
+                  properties={selectedProperties}
+                  onRemove={handleRemoveFromComparison}
                 />
-              ))}
+              </section>
+            )}
+
+            {/* Table Header */}
+            <div className="hidden md:flex items-center gap-4 py-3 px-4 mt-6 border-b border-border text-xs uppercase tracking-wider text-zinc-500 font-medium">
+              <div className="w-5" /> {/* Checkbox */}
+              <div className="w-14" /> {/* Thumbnail */}
+              <div className="flex-1">Property</div>
+              <div className="grid grid-cols-5 gap-8 text-right font-mono" style={{ width: '500px' }}>
+                <div>Price</div>
+                <div>Rent</div>
+                <div>Yield</div>
+                <div>Size</div>
+                <div>Rooms</div>
+              </div>
+              <div className="w-16" /> {/* Source */}
             </div>
-          )}
-        </section>
+
+            {/* Property Rows */}
+            <div className="border-x border-border-subtle">
+              {filteredProperties.length === 0 ? (
+                <div className="text-center py-16 border-b border-border-subtle">
+                  <div className="text-zinc-600 font-mono text-sm mb-2">NO_RESULTS</div>
+                  <p className="text-zinc-500 text-sm">Adjust filters to see properties</p>
+                </div>
+              ) : (
+                filteredProperties.map((property, index) => (
+                  <PropertyRow
+                    key={property.id}
+                    property={property}
+                    index={index}
+                    isSelected={selectedIds.has(property.id)}
+                    onToggleSelect={handleToggleSelect}
+                  />
+                ))
+              )}
+            </div>
+
+            {/* Bottom border with count */}
+            <div className="border border-t-0 border-border-subtle rounded-b-lg px-4 py-3 bg-surface/20">
+              <div className="flex items-center justify-between text-xs text-zinc-500 font-mono">
+                <span>Showing {filteredProperties.length} of {mockProperties.length}</span>
+                <span>{selectedIds.size} selected</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Sticky Sidebar */}
+          <div className="hidden xl:block w-72 flex-shrink-0">
+            <StickySidebar
+              properties={filteredProperties}
+              selectedCount={selectedIds.size}
+            />
+          </div>
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-6 text-center text-zinc-500 text-sm">
-          Rental Analytics - Data-driven investment decisions
+      <footer className="border-t border-border-subtle mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8 text-center text-zinc-500 text-sm">
+          Rental Analytics — Data-driven investment decisions
         </div>
       </footer>
     </div>

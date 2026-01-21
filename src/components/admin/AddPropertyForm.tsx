@@ -36,17 +36,17 @@ export function AddPropertyForm({ onAdd, editingProperty, onCancelEdit }: AddPro
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const inputClass = 'w-full px-4 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-white focus:border-lime focus:outline-none';
-  const labelClass = 'block text-zinc-400 text-sm font-medium mb-2';
+  const inputClass = 'w-full px-4 py-3 bg-zinc-900/50 ring-1 ring-border-subtle rounded-lg text-zinc-100 focus:ring-border-hover focus:outline-none placeholder:text-zinc-600 transition-all duration-150';
+  const labelClass = 'block text-zinc-500 text-sm font-medium mb-2';
 
   return (
-    <form onSubmit={handleSubmit} className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 space-y-6">
+    <form onSubmit={handleSubmit} className="bg-surface rounded-xl p-7 ring-1 ring-border-subtle shadow-premium space-y-7">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">
+        <h3 className="text-xl font-medium text-zinc-50">
           {editingProperty ? 'Edit Property' : 'Add New Property'}
         </h3>
         {editingProperty && onCancelEdit && (
-          <button type="button" onClick={onCancelEdit} className="text-zinc-400 hover:text-white text-sm">
+          <button type="button" onClick={onCancelEdit} className="text-zinc-500 hover:text-zinc-100 text-sm transition-colors duration-150">
             Cancel
           </button>
         )}
@@ -117,7 +117,7 @@ export function AddPropertyForm({ onAdd, editingProperty, onCancelEdit }: AddPro
         </div>
       </div>
 
-      <button type="submit" className="w-full px-6 py-3 bg-lime text-black font-semibold rounded-lg hover:bg-lime-hover transition-colors">
+      <button type="submit" className="w-full px-6 py-3 bg-lime text-black font-semibold rounded-lg hover:bg-lime-hover transition-all duration-150 shadow-glow">
         {editingProperty ? 'Update Property' : 'Add Property'}
       </button>
     </form>

@@ -8,8 +8,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Masterclass App',
-  description: 'Built with Claude Code at the Barcelona Masterclass',
+  title: 'Rental Analytics | Barcelona Investment Insights',
+  description: 'Data-driven real estate rental analytics for smart investment decisions in Barcelona',
 }
 
 export default function RootLayout({

@@ -3,17 +3,30 @@
 @tailwind utilities;
 
 :root {
-  /* Primary Colors - Like a Human Brand */
+  /* Premium Background - Near-black with subtle blue tint (Vercel-inspired) */
+  --background: #0a0a0f;
+  --background-elevated: #101014;
+
+  /* Primary Colors - Used Sparingly (60-30-10 rule) */
   --lime: #C8F169;
   --lime-hover: #B8E159;
   --lime-light: #E8FBBC;
+  --lime-muted: rgba(200, 241, 105, 0.15);
 
-  /* Neutral Colors */
-  --black: #000000;
-  --dark-gray: #1A1A1A;
-  --medium-gray: #666666;
-  --light-gray: #999999;
-  --white: #FFFFFF;
+  /* Refined Surface Colors */
+  --surface: rgba(24, 24, 27, 0.3);
+  --surface-hover: rgba(24, 24, 27, 0.5);
+  --surface-elevated: rgba(39, 39, 42, 0.4);
+
+  /* Ultra-subtle Borders */
+  --border: rgba(39, 39, 42, 0.5);
+  --border-subtle: rgba(39, 39, 42, 0.3);
+  --border-hover: rgba(63, 63, 70, 0.5);
+
+  /* Text Hierarchy */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
 
   /* Semantic Colors */
   --success: #22C55E;
@@ -21,8 +34,7 @@
   --error: #EF4444;
 
   /* Theme */
-  --background: #000000;
-  --foreground: #FFFFFF;
+  --foreground: #fafafa;
 }
 
 body {
@@ -76,25 +88,24 @@ button:focus-visible {
 }
 
 /* ================================================
-   Custom scrollbar (dark theme)
+   Custom scrollbar (premium dark theme)
    ================================================ */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--dark-gray);
-  border-radius: 4px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--medium-gray);
-  border-radius: 4px;
+  background: var(--border);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--light-gray);
+  background: var(--border-hover);
 }
 
 /* ================================================

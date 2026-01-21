@@ -65,7 +65,7 @@ function MagneticButton({
 
 export default function HomePage() {
   return (
-    <div className="h-screen w-screen bg-black text-white overflow-hidden flex flex-col relative">
+    <div className="h-screen w-screen bg-background text-zinc-50 overflow-hidden flex flex-col relative">
       {/* Video Background */}
       <video
         autoPlay
@@ -81,19 +81,19 @@ export default function HomePage() {
         />
       </video>
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/70 z-0" aria-hidden="true" />
+      <div className="absolute inset-0 bg-background/80 z-0" aria-hidden="true" />
 
       {/* Simple header */}
       <header className="flex items-center justify-between px-6 md:px-12 py-6 relative z-10">
-        <div className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <div className="w-10 h-10 bg-lime rounded-xl flex items-center justify-center">
-            <span className="text-black font-bold text-sm">RA</span>
+        <div className="flex items-center gap-3 group">
+          <div className="w-9 h-9 bg-zinc-800/80 rounded-lg flex items-center justify-center border border-border-subtle backdrop-blur-sm">
+            <span className="text-lime font-semibold text-sm">RA</span>
           </div>
-          <span className="text-white/80 font-medium hidden sm:block">
+          <span className="text-zinc-100/80 font-medium hidden sm:block tracking-tight">
             Rental Analytics
           </span>
         </div>
-        <div className="px-4 py-2 border border-white/20 rounded-full text-white/60 text-sm">
+        <div className="px-4 py-2 border border-border-subtle rounded-full text-zinc-400 text-sm backdrop-blur-sm bg-surface/30">
           Investment Insights
         </div>
       </header>
@@ -109,8 +109,8 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 border border-lime/30 bg-lime/10 rounded-full text-lime text-sm">
-                <span className="w-2 h-2 bg-lime rounded-full animate-pulse" />
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 border border-lime/20 bg-lime/5 rounded-full text-lime text-sm backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 bg-lime rounded-full animate-pulse" />
                 Personal Investment Tool
               </span>
             </motion.div>
@@ -121,7 +121,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[1.1] tracking-tight">
                 Rental Analytics
                 <br />
                 <span className="text-lime">Smarter investments.</span>
@@ -133,7 +133,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-white/60 text-lg lg:text-xl max-w-md leading-relaxed"
+              className="text-zinc-400 text-lg lg:text-xl max-w-md leading-relaxed"
             >
               Compare rental properties side-by-side. Analyze neighborhoods.
               Make data-driven investment decisions.
@@ -154,7 +154,7 @@ export default function HomePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-white/40 text-sm"
+              className="text-zinc-500 text-sm"
             >
               Compare properties, analyze yields, and find the best investments
             </motion.p>
@@ -169,13 +169,13 @@ export default function HomePage() {
           >
             <div className="relative w-full max-w-md aspect-square">
               {/* Abstract shape */}
-              <div className="absolute inset-0 rounded-[60px] bg-gradient-to-br from-lime/20 via-lime/5 to-transparent rotate-12 blur-sm" />
-              <div className="absolute inset-4 rounded-[50px] bg-gradient-to-br from-white/5 to-transparent -rotate-6" />
+              <div className="absolute inset-0 rounded-[60px] bg-gradient-to-br from-lime/10 via-lime/5 to-transparent rotate-12 blur-sm" />
+              <div className="absolute inset-4 rounded-[50px] bg-gradient-to-br from-zinc-100/5 to-transparent -rotate-6" />
 
               {/* Content card */}
-              <div className="absolute inset-8 bg-white/[0.03] backdrop-blur-sm rounded-3xl border border-white/10 p-8 flex flex-col justify-between">
+              <div className="absolute inset-8 bg-surface/50 backdrop-blur-md rounded-2xl ring-1 ring-border-subtle p-8 flex flex-col justify-between shadow-premium-lg">
                 <div>
-                  <div className="text-white/40 text-sm mb-2 font-medium uppercase tracking-wider">
+                  <div className="text-zinc-500 text-xs mb-3 font-medium uppercase tracking-wider">
                     Features
                   </div>
                   <div className="space-y-3">
@@ -192,9 +192,9 @@ export default function HomePage() {
                         transition={{ delay: 0.5 + i * 0.1 }}
                         className="flex items-center gap-3"
                       >
-                        <div className="w-2 h-2 rounded-full bg-lime" />
-                        <span className="text-white/80">{item.name}</span>
-                        <span className="text-white/40 text-sm">
+                        <div className="w-1.5 h-1.5 rounded-full bg-lime" />
+                        <span className="text-zinc-200">{item.name}</span>
+                        <span className="text-zinc-500 text-sm">
                           {item.detail}
                         </span>
                       </motion.div>
@@ -202,10 +202,10 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/10">
+                <div className="pt-6 border-t border-border-subtle">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-white/40">MVP: Property Comparison</span>
-                    <span className="text-lime">Building</span>
+                    <span className="text-zinc-500">MVP: Property Comparison</span>
+                    <span className="text-lime font-medium">Ready</span>
                   </div>
                 </div>
               </div>
@@ -216,22 +216,26 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="px-6 md:px-12 py-6 relative z-10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-white/30 text-sm">
-          <p>© 2026 Like a Human AI</p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-600 text-sm">
+          <p>© 2026 Rental Analytics</p>
           <div className="flex items-center gap-6">
             <a
-              href="mailto:jasper@likeahuman.ai"
-              className="hover:text-white/60 transition-colors"
+              href="/dashboard"
+              className="hover:text-zinc-400 transition-colors duration-150"
             >
-              Contact
+              Dashboard
             </a>
             <a
-              href="https://likeahuman.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white/60 transition-colors"
+              href="/neighborhoods"
+              className="hover:text-zinc-400 transition-colors duration-150"
             >
-              Website
+              Neighborhoods
+            </a>
+            <a
+              href="/calculator"
+              className="hover:text-zinc-400 transition-colors duration-150"
+            >
+              Calculator
             </a>
           </div>
         </div>
